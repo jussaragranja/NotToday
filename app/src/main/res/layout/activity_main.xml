@@ -23,12 +23,14 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
-        android:onClick="sendMessage"
         android:contentDescription="@string/emergency"
         android:src="@android:drawable/ic_menu_mylocation"
         app:backgroundTint="#92BDF1"
         app:fabSize="auto"
         app:maxImageSize="50dp" />
+
+        <!--android:onClick="sendMessage"-->
+
 
     <LinearLayout
         android:id="@+id/linearLayout"

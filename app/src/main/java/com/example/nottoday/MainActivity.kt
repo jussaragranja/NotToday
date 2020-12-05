@@ -2,15 +2,20 @@ package com.example.nottoday
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.telephony.SmsManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
 
@@ -27,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     protected var mLastLocation: Location? = null
     lateinit var editNumberText: EditText
     private lateinit var address: String
+    var button: FloatingActionButton? = null
+    var tempNumberHolder: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +42,54 @@ class MainActivity : AppCompatActivity() {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         editNumberText = findViewById(R.id.editNumberTextView)
+        button = findViewById(R.id.botao_adicionar_whats)
 
+        button!!.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+                sendMessage()
+                intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+                startActivityForResult(intent, 7)
+            }
+        })
     }
 
-    fun sendMessage(view: View) {
+    public override fun onActivityResult(RequestCode: Int, ResultCode: Int, ResultIntent: Intent?) {
+        super.onActivityResult(RequestCode, ResultCode, ResultIntent)
+        when (RequestCode) {
+            7 -> if (ResultCode == RESULT_OK) {
+                val uri: Uri?
+                val cursor1: Cursor?
+                val cursor2: Cursor?
+                val TempContactID: String
+                var IDresult: String? = ""
+                val IDresultHolder: Int
+                uri = ResultIntent!!.data
+                cursor1 = contentResolver.query(uri!!, null, null, null, null)
+                if (cursor1!!.moveToFirst()) {
+                    TempContactID = cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts._ID))
+                    IDresult = cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+                    IDresultHolder = Integer.valueOf(IDresult)
+                    if (IDresultHolder == 1) {
+                        cursor2 = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + TempContactID, null, null)
+                        while (cursor2!!.moveToNext()) {
+                            tempNumberHolder = cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun sendMessage() {
         val statusPermissaoSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
         val statusPermissaoLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-        if (statusPermissaoSMS == PackageManager.PERMISSION_GRANTED && statusPermissaoLocation == PackageManager.PERMISSION_GRANTED) {
+        val statusPermissaoReadContact = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+        if (statusPermissaoSMS == PackageManager.PERMISSION_GRANTED &&
+                statusPermissaoLocation == PackageManager.PERMISSION_GRANTED &&
+                statusPermissaoReadContact == PackageManager.PERMISSION_GRANTED) {
             getLastLocation()
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_COARSE_LOCATION),
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_CONTACTS),
                     REQUEST_PERMISSIONS_REQUEST_CODE)
         }
     }
@@ -66,16 +112,16 @@ class MainActivity : AppCompatActivity() {
                         println(address)
 
 
-                        val phoneNumber: String = editNumberText.text.toString().trim()
-                        if (phoneNumber == "") {
+                        //val phoneNumber: String = editNumberText.text.toString().trim()
+                        if (tempNumberHolder == "") {
                             showMessage(getString(R.string.input_phone_empty))
                         } else {
-                            if (TextUtils.isDigitsOnly(phoneNumber)) {
+                            if (TextUtils.isDigitsOnly(tempNumberHolder)) {
                                 val smsManager: SmsManager = SmsManager.getDefault()
                                 val parts: ArrayList<String>
                                 //smsManager.sendTextMessage(phoneNumber, null, address, null, null)
                                 parts = smsManager.divideMessage(address)
-                                smsManager.sendMultipartTextMessage(phoneNumber, null, parts, null, null)
+                                smsManager.sendMultipartTextMessage(tempNumberHolder, null, parts, null, null)
                                 showMessage(getString(R.string.send_message))
                             } else {
                                 showMessage(getString(R.string.invalid_number))
