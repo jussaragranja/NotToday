@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity_container"
@@ -20,7 +21,7 @@
         android:id="@+id/botao_adicionar_whats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         android:contentDescription="@string/emergency"
@@ -28,8 +29,6 @@
         app:backgroundTint="#92BDF1"
         app:fabSize="auto"
         app:maxImageSize="65dp" />
-
-    <!--android:onClick="sendMessage"-->
 
     <LinearLayout
         android:id="@+id/linearLayout"
