@@ -10,8 +10,8 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
+        android:layout_height="218dp"
         android:background="#92BDF1"
-        android:layout_height="177dp"
         android:contentDescription="@string/header_desc"
         android:paddingTop="@dimen/header_vertical_spacing"
         app:srcCompat="@drawable/woman" />
@@ -27,10 +27,9 @@
         android:src="@android:drawable/ic_menu_mylocation"
         app:backgroundTint="#92BDF1"
         app:fabSize="auto"
-        app:maxImageSize="50dp" />
+        app:maxImageSize="65dp" />
 
-        <!--android:onClick="sendMessage"-->
-
+    <!--android:onClick="sendMessage"-->
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -39,12 +38,16 @@
         android:orientation="vertical"
         android:padding="4dp" />
 
-    <EditText
-        android:id="@+id/editNumberTextView"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/msgText"
+        android:layout_width="358dp"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_mobile_number"
-        android:textColor="@android:color/black"
+        android:fontFamily="casual"
+        android:text="@string/msg_text_view"
+        android:textAlignment="center"
+        android:textColor="#E61E0F"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_anchor="@+id/linearLayout"
         app:layout_anchorGravity="center" />
 

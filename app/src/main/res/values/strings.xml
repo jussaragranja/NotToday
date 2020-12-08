@@ -2,27 +2,16 @@
     <string name="app_name">NotToday</string>
 
     <string name="header_desc">Woman</string>
-    <string name="enter_mobile_number">Enter mobile number</string>
     <string name="emergency">Botão Emergência</string>
-
-    <string name="address_found">Endereço nao encontrado</string>
-    <string name="no_address_found">Nenhum endereço encontrado</string>
-    <string name="invalid_lat_long_used">Latitude e longitude invalidas</string>
-    <string name="service_not_available">Serviço indisponivel</string>
-
+    <string name="send_message">Mensagem Enviada!</string>
 
     <string name="no_location_detected">Nenhum local detectado. Certifique-se de que a localização esteja habilitada no dispositivo.</string>
-
-    <string name="permission_rationale">A permissão de localização é necessária para a funcionalidade principal</string>
     <string name="permission_denied_explanation">A permissão foi negada, mas é necessária para o núcleo funcionalidade.</string>
-    <string name="settings">Settings</string>
+    <string name="input_phone_empty">O campo telefone não pode ser vazio! Selecione um contato válido</string>
+    <string name="invalid_number">Por favor selecione um contato válido, contendo apenas números.</string>
+    <string name="cancel_permission">A interação do usuário foi cancelada.</string>
 
-
-    <string name="permission_denied_add">Você precisa adicionar a permissão para enviar mensagens.</string>
-    <string name="input_phone_empty">O campo telefone não pode ser vazio!</string>
-    <string name="send_message">Mensagem Enviada!</string>
-    <string name="invalid_number">Por favor digite um número válido.</string>
-
-
+    <string name="msg_help">Preciso da sua ajuda, estou em perigo. Este é o meu endereço aproximado: </string>
+    <string name="msg_text_view">Para pedir ajuda e enviar sua localização, clique no botão abaixo e selecione um contato.</string>
 
 </resources>

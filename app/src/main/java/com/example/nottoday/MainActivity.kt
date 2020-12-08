@@ -15,7 +15,6 @@ import android.telephony.SmsManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     private var mFusedLocationClient: FusedLocationProviderClient? = null
     protected var mLastLocation: Location? = null
-    lateinit var editNumberText: EditText
     private lateinit var address: String
     var button: FloatingActionButton? = null
     var tempNumberHolder: String? = null
@@ -41,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        editNumberText = findViewById(R.id.editNumberTextView)
         button = findViewById(R.id.botao_adicionar_whats)
 
         button!!.setOnClickListener(object : View.OnClickListener {
@@ -84,6 +81,8 @@ class MainActivity : AppCompatActivity() {
         val statusPermissaoSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
         val statusPermissaoLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
         val statusPermissaoReadContact = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+
+
         if (statusPermissaoSMS == PackageManager.PERMISSION_GRANTED &&
                 statusPermissaoLocation == PackageManager.PERMISSION_GRANTED &&
                 statusPermissaoReadContact == PackageManager.PERMISSION_GRANTED) {
@@ -111,8 +110,6 @@ class MainActivity : AppCompatActivity() {
                         address = addresses[0].getAddressLine(0)
                         println(address)
 
-
-                        //val phoneNumber: String = editNumberText.text.toString().trim()
                         if (tempNumberHolder == "") {
                             showMessage(getString(R.string.input_phone_empty))
                         } else {
@@ -120,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                                 val smsManager: SmsManager = SmsManager.getDefault()
                                 val parts: ArrayList<String>
                                 //smsManager.sendTextMessage(phoneNumber, null, address, null, null)
-                                parts = smsManager.divideMessage(address)
+                                parts = smsManager.divideMessage(address+(getString(R.string.msg_help)))
                                 smsManager.sendMultipartTextMessage(tempNumberHolder, null, parts, null, null)
                                 showMessage(getString(R.string.send_message))
                             } else {
@@ -142,15 +139,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showSnackbar(mainTextStringId: Int) {
-
-        Toast.makeText(this@MainActivity, getString(mainTextStringId), Toast.LENGTH_LONG).show()
-    }
-
-    private fun checkPermissions(): Boolean {
-        val permissionState = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-        return permissionState == PackageManager.PERMISSION_GRANTED
+    private fun showSnackbar() {
+        Toast.makeText(this@MainActivity, getString(R.string.permission_denied_explanation), Toast.LENGTH_LONG).show()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
@@ -158,11 +148,11 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "onRequestPermissionResult")
         if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.size <= 0) {
-                Log.i(TAG, "A interação do usuário foi cancelada.")
+                Log.i(TAG, getString(R.string.cancel_permission))
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLastLocation()
             } else {
-                showSnackbar(R.string.permission_denied_explanation)
+                showSnackbar()
             }
         }
     }
