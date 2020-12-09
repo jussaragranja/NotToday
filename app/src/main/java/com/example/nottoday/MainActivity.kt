@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        button = findViewById(R.id.botao_adicionar_whats)
+        button = findViewById(R.id.botao_socorro)
 
         button!!.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
