@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -16,7 +15,6 @@
         android:contentDescription="@string/header_desc"
         android:paddingTop="@dimen/header_vertical_spacing"
         app:srcCompat="@drawable/woman" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/botao_adicionar_whats"
         android:layout_width="wrap_content"
@@ -29,17 +27,15 @@
         app:backgroundTint="#92BDF1"
         app:fabSize="auto"
         app:maxImageSize="65dp" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="4dp" />
-
     <TextView
         android:id="@+id/msgText"
-        android:layout_width="358dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="casual"
         android:text="@string/msg_text_view"
@@ -49,5 +45,4 @@
         android:textStyle="bold"
         app:layout_anchor="@+id/linearLayout"
         app:layout_anchorGravity="center" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

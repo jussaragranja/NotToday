@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                                 val smsManager: SmsManager = SmsManager.getDefault()
                                 val parts: ArrayList<String>
                                 //smsManager.sendTextMessage(phoneNumber, null, address, null, null)
-                                parts = smsManager.divideMessage(address+(getString(R.string.msg_help)))
+                                parts = smsManager.divideMessage((getString(R.string.msg_help))+address)
                                 smsManager.sendMultipartTextMessage(tempNumberHolder, null, parts, null, null)
                                 showMessage(getString(R.string.send_message))
                             } else {
