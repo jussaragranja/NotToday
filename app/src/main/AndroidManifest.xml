@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/oie_png"
+        android:icon="@mipmap/woman_quadr"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/woman_redondo_round"
+        android:roundIcon="@mipmap/woman_redond"
         android:supportsRtl="true"
         android:theme="@style/Theme.NotToday">
         <activity android:name=".MainActivity">
