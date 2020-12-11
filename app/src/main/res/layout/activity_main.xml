@@ -17,6 +17,7 @@
         android:paddingTop="@dimen/header_vertical_spacing"
         app:srcCompat="@drawable/woman" />
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/botao_socorro"
         android:layout_width="wrap_content"
@@ -30,24 +31,44 @@
         app:fabSize="auto"
         app:maxImageSize="65dp" />
 
-    <TextView
-        android:id="@+id/msgText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="@string/msg_text_view"
-        android:textAlignment="center"
-        android:textColor="#E61E0F"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_anchor="@+id/linearLayout"
-        app:layout_anchorGravity="center" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="4dp" />
+        android:padding="4dp" >
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="284dp"
+        android:layout_height="289dp"
+        app:layout_anchor="@+id/linearLayout"
+        app:layout_anchorGravity="center"
+        app:srcCompat="@drawable/nottoday" />
+
+    <TextView
+        android:id="@+id/msgText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/graduate"
+        android:text="@string/msg_text_view"
+        android:textAlignment="center"
+        android:textColor="#E61E0F"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_anchor="@+id/imageView2"
+        app:layout_anchorGravity="bottom|center" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="146dp"
+        android:layout_height="158dp"
+        app:layout_anchor="@+id/linearLayout"
+        app:layout_anchorGravity="end|bottom"
+        app:srcCompat="@drawable/seta_12_fw" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
